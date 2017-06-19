@@ -49,7 +49,10 @@ func joinUdp6Multicast(interfaces []net.Interface) (*ipv6.PacketConn, error) {
 	if len(interfaces) == 0 {
 		interfaces = listMulticastInterfaces()
 	}
-	log.Println("Using multicast interfaces: ", interfaces)
+
+	// 2017-JUN-19 z35 produces the startup message
+	// log.Println("Using multicast interfaces: ", interfaces)
+	//
 
 	var failedJoins int
 	for _, iface := range interfaces {
@@ -80,7 +83,10 @@ func joinUdp4Multicast(interfaces []net.Interface) (*ipv4.PacketConn, error) {
 	if len(interfaces) == 0 {
 		interfaces = listMulticastInterfaces()
 	}
-	log.Println("Using multicast interfaces: ", interfaces)
+
+	// 2017-JUN-19 z35 produces the startup message
+	// log.Println("Using multicast interfaces: ", interfaces)
+	//
 
 	var failedJoins int
 	for _, iface := range interfaces {

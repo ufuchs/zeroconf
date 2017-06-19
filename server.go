@@ -337,7 +337,11 @@ func isKnownAnswer(resp *dns.Msg, query *dns.Msg) bool {
 		}
 		ptr := known.(*dns.PTR)
 		if ptr.Ptr == answer.Ptr && hdr.Ttl >= answer.Hdr.Ttl/2 {
-			log.Printf("skipping known answer: %v", ptr)
+
+			// 2017-JUN-19 z35 skipping message
+			// log.Printf("skipping known answer: %v", ptr)
+			//
+
 			return true
 		}
 	}
