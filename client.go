@@ -67,6 +67,7 @@ func NewResolver(options ...ClientOption) (*Resolver, error) {
 	var conf = clientOpts{
 		listenOn: IPv4AndIPv6,
 	}
+
 	for _, o := range options {
 		if o != nil {
 			o(&conf)
@@ -150,19 +151,16 @@ func newClient(opts clientOpts) (*client, error) {
 	}
 	// IPv4 interfaces
 	var ipv4conn *ipv4.PacketConn
+	var err error
 	if (opts.listenOn & IPv4) > 0 {
-		var err error
-		ipv4conn, err = joinUdp4Multicast(ifaces)
-		if err != nil {
+		if ipv4conn, err = joinUdp4Multicast(ifaces); err != nil {
 			return nil, err
 		}
 	}
 	// IPv6 interfaces
 	var ipv6conn *ipv6.PacketConn
 	if (opts.listenOn & IPv6) > 0 {
-		var err error
-		ipv6conn, err = joinUdp6Multicast(ifaces)
-		if err != nil {
+		if ipv6conn, err = joinUdp6Multicast(ifaces); err != nil {
 			return nil, err
 		}
 	}
@@ -268,6 +266,7 @@ func (c *client) mainloop(ctx context.Context, params *LookupParams) {
 
 		if len(entries) > 0 {
 			for k, e := range entries {
+
 				if e.TTL == 0 {
 					delete(entries, k)
 					delete(sentEntries, k)
