@@ -112,6 +112,7 @@ func listMulticastInterfaces() []net.Interface {
 
 	for _, ifi := range ifaces {
 
+		// GOOS == Darwin
 		if (ifi.Name == "awdl0") || (ifi.Name == "p2p0") {
 			continue
 		}
