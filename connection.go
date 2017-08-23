@@ -109,7 +109,13 @@ func listMulticastInterfaces() []net.Interface {
 	if err != nil {
 		return nil
 	}
+
 	for _, ifi := range ifaces {
+
+		if (ifi.Name == "awdl0") || (ifi.Name == "p2p0") {
+			continue
+		}
+
 		if (ifi.Flags & net.FlagUp) == 0 {
 			continue
 		}
